@@ -1,73 +1,56 @@
 package com.terrik.footballmanager.controller;
 
 import com.terrik.footballmanager.entity.Player;
-import com.terrik.footballmanager.repository.PlayerRepository;
+import com.terrik.footballmanager.service.PlayerService;
 import org.springframework.web.bind.annotation.*;
-import com.terrik.footballmanager.entity.FootballTeam;
-import com.terrik.footballmanager.repository.FootballTeamRepository;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/players")
 public class PlayerController {
 
-private final PlayerRepository repository;
-private final FootballTeamRepository teamRepository;
+    private final PlayerService service;
 
-public PlayerController(PlayerRepository repository,
-                        FootballTeamRepository teamRepository) {
-
-    this.repository = repository;
-    this.teamRepository = teamRepository;
-}
+    public PlayerController(PlayerService service) {
+        this.service = service;
+    }
 
     // GET all players
     @GetMapping
     public List<Player> getAllPlayers() {
-        return repository.findAll();
+        return service.getAllPlayers();
     }
+
+    // GET player by ID
     @GetMapping("/{id}")
-public Player getPlayerById(@PathVariable Long id) {
-    return repository.findById(id).orElse(null);
-}
+    public Player getPlayerById(@PathVariable Long id) {
+        return service.getPlayerById(id);
+    }
+
+    // POST create player
     @PostMapping
-public Player createPlayer(@RequestBody Player player) {
-    return repository.save(player);
-}
-@PutMapping("/{playerId}/team/{teamId}")
-public Player assignTeam(@PathVariable Long playerId,
-                         @PathVariable Long teamId) {
-
-    Player player = repository.findById(playerId).orElse(null);
-    FootballTeam team = teamRepository.findById(teamId).orElse(null);
-
-    if (player == null || team == null) {
-        return null;
+    public Player createPlayer(@RequestBody Player player) {
+        return service.savePlayer(player);
     }
 
-    player.setTeam(team);
-
-    return repository.save(player);
-}
-@PutMapping("/{id}")
-public Player updatePlayer(@PathVariable Long id,
-                           @RequestBody Player updatedPlayer) {
-
-    Player player = repository.findById(id).orElse(null);
-
-    if (player == null) {
-        return null;
+    // PUT update player
+    @PutMapping("/{id}")
+    public Player updatePlayer(@PathVariable Long id,
+                               @RequestBody Player updatedPlayer) {
+        return service.updatePlayer(id, updatedPlayer);
     }
 
-    player.setPlayerName(updatedPlayer.getPlayerName());
-    player.setPosition(updatedPlayer.getPosition());
-    player.setJerseyNumber(updatedPlayer.getJerseyNumber());
-    player.setAge(updatedPlayer.getAge());
+    // PUT assign player to a team
+    @PutMapping("/{playerId}/team/{teamId}")
+    public Player assignTeam(@PathVariable Long playerId,
+                             @PathVariable Long teamId) {
+        return service.assignTeam(playerId, teamId);
+    }
 
-    return repository.save(player);
-}
-@DeleteMapping("/{id}")
-public void deletePlayer(@PathVariable Long id) {
-    repository.deleteById(id);
-}
+    // DELETE player
+    @DeleteMapping("/{id}")
+    public void deletePlayer(@PathVariable Long id) {
+        service.deletePlayer(id);
+    }
 }

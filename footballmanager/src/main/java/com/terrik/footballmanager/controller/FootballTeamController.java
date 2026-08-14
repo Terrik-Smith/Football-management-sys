@@ -1,7 +1,7 @@
 package com.terrik.footballmanager.controller;
 
 import com.terrik.footballmanager.entity.FootballTeam;
-import com.terrik.footballmanager.repository.FootballTeamRepository;
+import com.terrik.footballmanager.service.FootballTeamService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,37 +10,37 @@ import java.util.List;
 @RequestMapping("/teams")
 public class FootballTeamController {
 
-    private final FootballTeamRepository repository;
+    private final FootballTeamService service;
 
-    public FootballTeamController(FootballTeamRepository repository) {
-        this.repository = repository;
-    }
+    public FootballTeamController(FootballTeamService service) {
+    this.service = service;
+}
 
     // GET all teams
 @GetMapping
 public List<FootballTeam> getAllTeams() {
-    return repository.findAll();
+    return service.getAllTeams();
 }
 
 @GetMapping("/{id}")
 public FootballTeam getTeamById(@PathVariable Long id) {
-    return repository.findById(id).orElse(null);
+    return service.getTeamById(id);
 }
 
 @PostMapping
 public FootballTeam createTeam(@RequestBody FootballTeam team) {
-    return repository.save(team);
+    return service.saveTeam(team);
     }
 @DeleteMapping("/{id}")
 public void deleteTeam(@PathVariable Long id) {
-    repository.deleteById(id);
+    service.deleteTeam(id);
 }
 
     @PutMapping("/{id}")
 public FootballTeam updateTeam(@PathVariable Long id,
                                @RequestBody FootballTeam updatedTeam) {
 
-    FootballTeam team = repository.findById(id).orElse(null);
+    FootballTeam team = service.getTeamById(id);
 
     if (team == null) {
         return null;
@@ -50,6 +50,6 @@ public FootballTeam updateTeam(@PathVariable Long id,
     team.setCity(updatedTeam.getCity());
     team.setCoach(updatedTeam.getCoach());
 
-    return repository.save(team);
+    return service.saveTeam(team);
 }
 }
