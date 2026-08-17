@@ -1,6 +1,8 @@
 package com.terrik.footballmanager.service;
 
+import com.terrik.footballmanager.dto.FootballTeamDTO;
 import com.terrik.footballmanager.entity.FootballTeam;
+import com.terrik.footballmanager.entity.Player;
 import com.terrik.footballmanager.repository.FootballTeamRepository;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +28,18 @@ public class FootballTeamService {
     public FootballTeam saveTeam(FootballTeam team) {
         return repository.save(team);
     }
+    public List<FootballTeamDTO> getAllTeamDTOs() {
 
+    return repository.findAll()
+            .stream()
+            .map(team -> new FootballTeamDTO(
+                    team.getId(),
+                    team.getTeamName(),
+                    team.getCity(),
+                    team.getCoach()
+            ))
+            .toList();
+}
     public FootballTeam updateTeam(Long id, FootballTeam updatedTeam) {
         FootballTeam team = repository.findById(id).orElse(null);
 
@@ -40,7 +53,17 @@ public class FootballTeamService {
 
         return repository.save(team);
     }
+    
+    public List<Player> getPlayersByTeamId(Long id) {
 
+    FootballTeam team = repository.findById(id).orElse(null);
+
+    if (team == null) {
+        return List.of();
+    }
+
+    return team.getPlayers();
+}
     public void deleteTeam(Long id) {
         repository.deleteById(id);
     }

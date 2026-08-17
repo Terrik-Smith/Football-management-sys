@@ -1,0 +1,45 @@
+import json
+import os
+
+teams = [
+    {"teamName":"Arizona Cardinals","city":"Glendale","coach":"Jonathan Gannon"},
+    {"teamName":"Atlanta Falcons","city":"Atlanta","coach":"Raheem Morris"},
+    {"teamName":"Baltimore Ravens","city":"Baltimore","coach":"John Harbaugh"},
+    {"teamName":"Buffalo Bills","city":"Buffalo","coach":"Sean McDermott"},
+    {"teamName":"Carolina Panthers","city":"Charlotte","coach":"Dave Canales"},
+    {"teamName":"Chicago Bears","city":"Chicago","coach":"Ben Johnson"},
+    {"teamName":"Cincinnati Bengals","city":"Cincinnati","coach":"Zac Taylor"},
+    {"teamName":"Cleveland Browns","city":"Cleveland","coach":"Kevin Stefanski"},
+    {"teamName":"Dallas Cowboys","city":"Arlington","coach":"Brian Schottenheimer"},
+    {"teamName":"Denver Broncos","city":"Denver","coach":"Sean Payton"},
+    {"teamName":"Detroit Lions","city":"Detroit","coach":"Dan Campbell"},
+    {"teamName":"Green Bay Packers","city":"Green Bay","coach":"Matt LaFleur"},
+    {"teamName":"Houston Texans","city":"Houston","coach":"DeMeco Ryans"},
+    {"teamName":"Indianapolis Colts","city":"Indianapolis","coach":"Shane Steichen"},
+    {"teamName":"Jacksonville Jaguars","city":"Jacksonville","coach":"Liam Coen"},
+    {"teamName":"Kansas City Chiefs","city":"Kansas City","coach":"Andy Reid"},
+    {"teamName":"Las Vegas Raiders","city":"Las Vegas","coach":"Pete Carroll"},
+    {"teamName":"Los Angeles Chargers","city":"Los Angeles","coach":"Jim Harbaugh"},
+    {"teamName":"Los Angeles Rams","city":"Los Angeles","coach":"Sean McVay"},
+    {"teamName":"Miami Dolphins","city":"Miami Gardens","coach":"Mike McDaniel"},
+    {"teamName":"Minnesota Vikings","city":"Minneapolis","coach":"Kevin O'Connell"},
+    {"teamName":"New England Patriots","city":"Foxborough","coach":"Mike Vrabel"},
+    {"teamName":"New Orleans Saints","city":"New Orleans","coach":"Kellen Moore"},
+    {"teamName":"New York Giants","city":"East Rutherford","coach":"Brian Daboll"},
+    {"teamName":"New York Jets","city":"East Rutherford","coach":"Aaron Glenn"},
+    {"teamName":"Philadelphia Eagles","city":"Philadelphia","coach":"Nick Sirianni"},
+    {"teamName":"Pittsburgh Steelers","city":"Pittsburgh","coach":"Mike Tomlin"},
+    {"teamName":"San Francisco 49ers","city":"Santa Clara","coach":"Kyle Shanahan"},
+    {"teamName":"Seattle Seahawks","city":"Seattle","coach":"Mike Macdonald"},
+    {"teamName":"Tampa Bay Buccaneers","city":"Tampa","coach":"Todd Bowles"},
+    {"teamName":"Tennessee Titans","city":"Nashville","coach":"Brian Callahan"},
+    {"teamName":"Washington Commanders","city":"Landover","coach":"Dan Quinn"}
+]
+
+output_folder = "src/main/resources"
+os.makedirs(output_folder, exist_ok=True)
+
+with open(f"{output_folder}/teams.json", "w") as file:
+    json.dump(teams, file, indent=4)
+
+print(f"Created teams.json with {len(teams)} teams.")

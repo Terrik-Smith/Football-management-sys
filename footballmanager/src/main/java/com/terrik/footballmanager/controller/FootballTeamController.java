@@ -1,11 +1,14 @@
 package com.terrik.footballmanager.controller;
 
+import com.terrik.footballmanager.dto.FootballTeamDTO;
 import com.terrik.footballmanager.entity.FootballTeam;
+import com.terrik.footballmanager.entity.Player;
 import com.terrik.footballmanager.service.FootballTeamService;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:5500")
 @RestController
 @RequestMapping("/teams")
 public class FootballTeamController {
@@ -18,13 +21,18 @@ public class FootballTeamController {
 
     // GET all teams
 @GetMapping
-public List<FootballTeam> getAllTeams() {
-    return service.getAllTeams();
+public List<FootballTeamDTO> getAllTeams() {
+    return service.getAllTeamDTOs();
 }
 
 @GetMapping("/{id}")
 public FootballTeam getTeamById(@PathVariable Long id) {
     return service.getTeamById(id);
+}
+
+@GetMapping("/{id}/players")
+public List<Player> getPlayersByTeam(@PathVariable Long id) {
+    return service.getPlayersByTeamId(id);
 }
 
 @PostMapping

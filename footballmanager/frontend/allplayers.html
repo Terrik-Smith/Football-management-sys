@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>NFL Player Search</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 30px;
+        }
+
+        h1 {
+            color: #013369;
+        }
+
+        #search {
+            display: block;
+            width: 320px;
+            height: 45px;
+            margin: 20px auto;
+            padding: 0 12px;
+            font-size: 18px;
+            border: 2px solid #333;
+            border-radius: 8px;
+            background: white;
+            color: black;
+            position: relative;
+            z-index: 9999;
+            pointer-events: auto;
+        }
+
+        #players {
+            margin-top: 20px;
+        }
+
+        .player-card {
+            background: white;
+            width: 350px;
+            margin: 15px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🏈 NFL Player Search</h1>
+
+    <input
+        type="text"
+        id="search"
+        placeholder="Type a player name..."
+        autocomplete="off"
+    >
+
+    <p id="status">Loading players...</p>
+
+    <div id="players"></div>
+
+    <br>
+
+    <a href="index.html">
+        <button>⬅ Back Home</button>
+    </a>
+
+    <script src="allplayers.js"></script>
+
+</body>
+
+</html>
